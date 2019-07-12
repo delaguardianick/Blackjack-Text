@@ -89,42 +89,47 @@ public class Blackjack
             //Stand
             else if (input.equalsIgnoreCase("stand"))
             {
-                System.out.println(nickname + " stands with " + player.getSum() + "\n");
+                System.out.println("\n" + nickname + " stands with " + player.getSum() + "\n");
             }
         } while (input.equalsIgnoreCase("hit") && !gameOver);
 
+        //Exit if gameOver for player
         if (gameOver)
         {
             System.out.println();
             System.exit(0);
         }
+
         //Dealer's turn
         System.out.println(dealer.showHand("Dealer"));
-        System.out.println("(" + dealer.getSum() + ")");
-        do {
-            System.out.println(dealer.giveCard(deck.draw()));
-            if (dealer.getSum() == 21)
+        System.out.println( "(" + dealer.getSum() + ")" );
+        
+        while(dealer.getSum() < 17 && gameOver == false)
             {
-                System.out.println("Blackjack! Dealer wins this time");
-                gameOver = true;
-            }
-            else if (dealer.getSum() > 21)
-            {
-                System.out.println("Dealer busted! You win!");
-                gameOver = true;
+                System.out.println(dealer.giveCard(deck.draw()));
+                System.out.println("(" + dealer.getSum() + ")" + "\n");
+                if (dealer.getSum() == 21)
+                {
+                    System.out.println("Blackjack! Dealer wins this time");
+                    gameOver = true;
+                }
+                else if (dealer.getSum() > 21)
+                {
+                    System.out.println("Dealer busted! You win!");
+                    gameOver = true;
+                }
             }
 
-        }while (dealer.getSum() < 17 && !gameOver);
-
+        //Exit if gameOver for dealer
         if (gameOver)
         {   System.out.println();
-            System.exit(0);}
-
-        System.out.println("(" + dealer.getSum() +")");
+            System.exit(0);
+        }
+        
         System.out.println("\n" + "Dealer: " + "(" + dealer.getSum() + ")");
 
         //Hand comparison
-        System.out.println(nickname + " : " + "(" + player.getSum() + ")" + "\n");
+        System.out.println(nickname + " : " + "(" + player.getSum() + ")");
         if (dealer.getSum() > player.getSum())
         {
             System.out.println("Sorry! Dealer wins");
