@@ -17,4 +17,7 @@ public enum Face
     {
         return faceValue;
     }
+
+    public static void main(String[] args) {
+    }
 }

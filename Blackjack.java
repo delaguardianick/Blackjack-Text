@@ -12,7 +12,7 @@ public class Blackjack
 
         System.out.println("Please insert a nickname:");
         nickname = scanner.nextLine();
-
+        do {
         System.out.println("\n" + "A new game has begun:" + "\n");
 
         System.out.println("Would you like to display the sum? (y/n)");
@@ -25,36 +25,32 @@ public class Blackjack
         else {cheatOn = false ;}
 
         Player player = new Player(nickname);
-        Player dealer = new Player("dealer");
+        Player dealer = new Player("Dealer");
         Deck deck = new Deck();
         
-        //Dealing first Card, dealer's is hidden
+        //Shuffle deck
         deck.shuffle();
-        /** */
+       
+        //Give first cards to player and dealer
         player.giveCard(deck.draw());
-        //System.out.println("\n" + player.showHand(nickname));
-
-        dealer.giveCard(deck.draw());
-        //System.out.println("\n" + "Dealer: " + "\n" + "Hidden");
-        
-      //  if (cheatOn)
-        // {System.out.println("(?)");}
-        // System.out.println("\n" + "One more card!" + "\n");
-        
-        //Second card is dealt
+        dealer.giveCard(deck.draw()); // Will be hidden
         player.giveCard(deck.draw());
-        System.out.println(player.showHand(nickname));
-        if (cheatOn)
-        {
-            System.out.println("(" + player.getSum() + ")");
-        }
 
+        System.out.println(player.showHand(cheatOn));
+
+        //Checks if cheat is on and if so, prints the total value of the hand
+        //System.out.println(player.checkCheat(cheatOn));
+
+        // As the first card the dealer receives is hidden to the the player,
+        // I can't use the function showHand() as it will also show the hidden card.
         holdCard = deck.draw();
         System.out.println("\n" + "Dealer: " + "\n" + "Hidden" + "\n" + dealer.giveCard(holdCard));
-       if (cheatOn)
-       {
+       
+        // Can't use checkCheat() either because it would display the value of the hidden card
+        if (cheatOn)
+        {
         System.out.println("(" + holdCard.getFace().getValue() + ")");
-       }
+        }
        
        //Player's turn
         do{  
@@ -67,11 +63,7 @@ public class Blackjack
             if (input.equalsIgnoreCase("hit"))
             {
                 player.giveCard(deck.draw());
-                System.out.println("\n" + player.showHand(nickname));
-                if (cheatOn)
-                {
-                    System.out.println("(" + player.getSum() + ")" + "\n");
-                }
+                System.out.println("\n" + player.showHand(cheatOn));
                 
                 //Player Bust
                 if (player.getSum() > 21)
@@ -101,21 +93,21 @@ public class Blackjack
         }
 
         //Dealer's turn
-        System.out.println(dealer.showHand("Dealer"));
-        System.out.println( "(" + dealer.getSum() + ")" );
+        System.out.println(dealer.showHand(cheatOn));
         
         while(dealer.getSum() < 17 && gameOver == false)
             {
                 System.out.println(dealer.giveCard(deck.draw()));
-                System.out.println("(" + dealer.getSum() + ")" + "\n");
+                System.out.println(dealer.checkCheat(cheatOn));
+
                 if (dealer.getSum() == 21)
                 {
-                    System.out.println("Blackjack! Dealer wins this time");
+                    System.out.println("\n" + "Blackjack! Dealer wins this time");
                     gameOver = true;
                 }
                 else if (dealer.getSum() > 21)
                 {
-                    System.out.println("Dealer busted! You win!");
+                    System.out.println("\n" + "Dealer busted! You win!");
                     gameOver = true;
                 }
             }
@@ -126,10 +118,10 @@ public class Blackjack
             System.exit(0);
         }
         
+        //Hand comparison 
         System.out.println("\n" + "Dealer: " + "(" + dealer.getSum() + ")");
-
-        //Hand comparison
         System.out.println(nickname + " : " + "(" + player.getSum() + ")");
+
         if (dealer.getSum() > player.getSum())
         {
             System.out.println("Sorry! Dealer wins");
@@ -144,6 +136,12 @@ public class Blackjack
         }
 
         System.out.println();
-        System.exit(0);
-    }
+        System.out.println("Would you like to start a new game?  'y/n' :");
+        do {
+            input = scanner.nextLine();
+        } while (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n"));
+
+        }while (input.equalsIgnoreCase("y"));
+    // tidy up
+    scanner.close();    }
 }

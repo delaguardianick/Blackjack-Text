@@ -23,31 +23,37 @@ public class Player
 
     public int getSum()
     {
-            int handSum = 0;
-            for (Card card : hand)
-            {
-                handSum += card.getFace().getValue();
-            }
-            return handSum;
+        int handSum = 0;
+        for (Card card : hand)
+        {
+            handSum += card.getFace().getValue();
+         
+        }
+        return handSum;
     }
 
-    public String showHand(String nickname)
+    public String showHand(Boolean cheat)
     {
             String playerHand = "";
             for (Card card : hand)
             {
-                if  (hand.size() > 0)
-                {
                     playerHand += "\n" + card.toString();
-                }
-                
             }
-            return nickname + ": " + playerHand;
+            if (cheat == true)
+            {
+                playerHand += "\n" + ("(" + this.getSum() + ")");
+            }
+            return this.name + ": " + playerHand;
     }
-
     
-    public static void main(String[] args) {
-        
-    
+    public String checkCheat(Boolean bool)
+    {
+        String sum = "";
+        if (bool == true)
+        {
+           sum =  ("(" + this.getSum() + ")") ;
+        }
+        return sum;
     }
+    
 }
