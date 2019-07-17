@@ -4,6 +4,7 @@ import javax.lang.model.util.ElementScanner6;
 
 public class Player 
 {
+    //init
     private final ArrayList<Card> hand;
     private final String name;
 
@@ -17,32 +18,14 @@ public class Player
         return name;
     }
 
+    //Adds card parameter to ArrayList hand (player's current cards)
     public String giveCard(Card card)
     {
         hand.add(card);
         return card.toString();
     }
-
-    public void checkAce()
-    {
-        int handSum = 0;
-        int numberOfAces = 0;
-        for (Card card : hand)
-        {
-                if (card.getFace() == Face.Ace)
-                {
-                    numberOfAces ++;
-                    if (handSum < 11)
-                    {
-                        handSum += card.getFace().getValue() + 10;
-                    } 
-                    else 
-                    { 
-                    }
-                }
-        }
-    }
-              
+    
+    //Loops through hand array and prints every card. If cheat is on, shows total sum of hand too
     public String showHand(Boolean cheat)
     {
             String playerHand = "";
@@ -57,6 +40,8 @@ public class Player
             return this.name + ": " + playerHand;
     }
 
+    //Checks if hand has an Ace and a card with value 10 (10,J,Q,K). If both true, is blackjack
+    //Only used for 21's in Blackjack.java
     public Boolean isBlackjack()
     {
         Boolean hasAce = false;
@@ -79,7 +64,6 @@ public class Player
         {
             blackjack = true;
         }
-
         return blackjack;
     }
     
@@ -117,5 +101,4 @@ public class Player
         }
         return sum;
     }
-    
 }

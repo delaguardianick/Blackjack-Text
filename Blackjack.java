@@ -25,6 +25,8 @@ public class Blackjack
 
         //Game restarts here when asked for new game
         do {
+            System.out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n");
+
             Boolean gameOver = false;
             System.out.println("\n" + "A new game has begun:" + "\n");
 
@@ -44,7 +46,6 @@ public class Blackjack
             System.out.println(player.showHand(cheatOn));
 
             //Checks if cheat is on and if so, prints the total value of the hand
-            //System.out.println(player.checkCheat(cheatOn));
 
             // As the first card the dealer receives is hidden to the the player,
             // I can't use the function showHand() as it will also show the hidden card.
@@ -56,14 +57,22 @@ public class Blackjack
             {
             System.out.println("(" + holdCard.getFace().getValue() + ")");
             }
-        
+            
+            //in case of immediate blackjack with 2 initial cards.
+           if (player.isBlackjack() == true)
+            {
+                System.out.println("\n" + "Blackjack! You win!");
+                gameOver = true;
+            }
+
             //Loops the "hit"
             do{  
+
                 //Player's turn
                 //checks that input is either "hit" or "stand"
                 do {
-                System.out.println("\n" + "Would you like one more card? (hit/stand)");
-                input = scanner.nextLine();
+                    System.out.println("\n" + "Would you like one more card? (hit/stand)");
+                    input = scanner.nextLine();
                 }while(!input.equalsIgnoreCase("hit") && !input.equalsIgnoreCase("stand"));
 
                 //Player Hit
@@ -86,18 +95,12 @@ public class Blackjack
                             System.out.println("\n" + "Blackjack! You win!");
                             gameOver = true;
                         }
-                        else
-                        {
-                            System.out.println("\n" + "21! You win!");
-                            gameOver = true;
-                        }
-
                     }
                 }
                 //Player Stand - doesn't loop
                 else if (input.equalsIgnoreCase("stand"))
                 {
-                    System.out.println("\n" + nickname + " stands with " + player.getSum() + "\n");
+                    System.out.println("\n" + nickname + " stands with (" + player.getSum() + ")" + "\n");
                 }
             } while (input.equalsIgnoreCase("hit") && !gameOver); // loops this part as long as input is "hit" and not a game over
 
@@ -106,6 +109,11 @@ public class Blackjack
             if (gameOver == false)
             {
                 System.out.println(dealer.showHand(cheatOn));
+                if (dealer.isBlackjack() == true)
+                {
+                    System.out.println("\n" + "Blackjack - Dealer wins");
+                }
+                    
             }     
             
             //Dealer hits if his hand sums at least 16, if not stand
@@ -115,18 +123,9 @@ public class Blackjack
                     System.out.println(dealer.checkCheat(cheatOn));
 
                     if (dealer.getSum() == 21)
-                    {
-                        if (dealer.isBlackjack() == true)
-                        {
-                            System.out.println("\n" + "Blackjack - Dealer wins");
-                            gameOver = true;
-                        }
-                        else
-                        {
-                            System.out.println("\n" + "21 - Dealer wins");
-                            gameOver = true;
-                        }
-
+                    {   
+                        System.out.println("\n" + "21 - Dealer wins");
+                        gameOver = true;
                     }
                     else if (dealer.getSum() > 21)
                     {
