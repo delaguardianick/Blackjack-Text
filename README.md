@@ -1,2 +1,2 @@
 # Blackjack-Text-Simple
-Simple text-based Blackjack with full functionality except Splitting
+Text-based Blackjack with full functionality except Splitting
