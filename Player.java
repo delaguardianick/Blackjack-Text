@@ -118,19 +118,4 @@ public class Player
         return sum;
     }
     
-    
-    public static void main(String[] args) {
-        Deck deck = new Deck();
-        Player player = new Player("Nick");
-
-        player.giveCard(new Card(Face.Ace, Suit.Hearts));
-        player.giveCard(new Card(Face.King, Suit.Spades));
-       // player.giveCard(new Card(Face.Five, Suit.Spades));
-       // player.giveCard(new Card(Face.Four, Suit.Spades));
-       // player.giveCard(new Card(Face.Ace, Suit.Clubs));
-
-        int sum = player.getSum();
-        System.out.println(player.isBlackjack());
-        System.out.println(sum);
-    }
 }

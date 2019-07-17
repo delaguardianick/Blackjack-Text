@@ -102,7 +102,7 @@ public class Blackjack
             } while (input.equalsIgnoreCase("hit") && !gameOver); // loops this part as long as input is "hit" and not a game over
 
             //Dealer's turn
-            //Prints initial dealer's hand without hidden
+            //Prints initial dealer's hand without hidden card
             if (gameOver == false)
             {
                 System.out.println(dealer.showHand(cheatOn));

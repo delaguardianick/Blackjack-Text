@@ -7,7 +7,6 @@ public enum Face
     King(10);
 
     private final int faceValue;
-    private final int aceSecondValue = 11;
 
     private Face(int faceValue)
     {
@@ -17,13 +16,5 @@ public enum Face
     public int getValue()
     {
         return faceValue;
-    }
-    
-    public int getAceSecondValue()
-    {
-        return aceSecondValue;
-    }
-
-    public static void main(String[] args) {
     }
 }
